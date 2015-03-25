@@ -1,0 +1,18 @@
+﻿<Window x:Class="Any.Encrypt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Any.Encrypt" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <PasswordBox x:Name="passText" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
+        <Button Grid.Row="1" Content="Encrypt" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="OnEncryptClick" Grid.Column="0" />
+        <Button Grid.Row="1" Content="Decrypt" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="OnDecryptClick" Grid.Column="1"/>
+    </Grid>
+</Window>
