@@ -26,6 +26,7 @@ namespace Any.Encrypt
         public byte[] Encrypt(byte[] data, byte[] key, byte[] iv)
         {
             using (var algorithm = Aes.Create())
+// ReSharper disable once PossibleNullReferenceException
             using (ICryptoTransform encryptor = algorithm.CreateEncryptor(key, iv))
             {
                 return Crypt(data, encryptor);
@@ -35,6 +36,7 @@ namespace Any.Encrypt
         public byte[] Decrypt(byte[] data, byte[] key, byte[] iv)
         {
             using (var algorithm = Aes.Create())
+// ReSharper disable once PossibleNullReferenceException
             using (ICryptoTransform decryptor = algorithm.CreateDecryptor(key, iv))
             {
                 return Crypt(data, decryptor);
