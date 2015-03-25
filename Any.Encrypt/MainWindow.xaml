@@ -12,6 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <PasswordBox x:Name="passText" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
+        <PasswordBox x:Name="confPassText" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
         <Button Grid.Row="1" Content="Encrypt" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="OnEncryptClick" Grid.Column="0" />
         <Button Grid.Row="1" Content="Decrypt" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="OnDecryptClick" Grid.Column="1"/>
     </Grid>

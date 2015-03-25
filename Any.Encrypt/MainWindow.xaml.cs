@@ -17,6 +17,11 @@ namespace Any.Encrypt
 
         private void OnEncryptClick(object sender, RoutedEventArgs e)
         {
+            if (passText.Password != confPassText.Password)
+            {
+                MessageBox.Show("Passwords doesn't match");
+                return;
+            }
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() ?? false)
             {
@@ -34,6 +39,11 @@ namespace Any.Encrypt
 
         private void OnDecryptClick(object sender, RoutedEventArgs e)
         {
+            if (passText.Password != confPassText.Password)
+            {
+                MessageBox.Show("Passwords doesn't match");
+                return;
+            }
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() ?? false)
             {
