@@ -28,9 +28,9 @@ namespace Any.Encrypt
                 using (var file = ofd.OpenFile())
                 using (var reader = new BinaryReader(file))
                 {
-                    var sh = new SecurityHelper(passText.Password);
+                    var sh = new SecurityHelper();
                     var content = reader.ReadBytes((int)file.Length);
-                    var eContent = sh.Encrypt(content);
+                    var eContent = sh.Encrypt(content, passText.Password);
                     File.WriteAllBytes(String.Format("{0}.edata",ofd.FileName), eContent);
                     MessageBox.Show("Ok");
                 }
@@ -50,9 +50,9 @@ namespace Any.Encrypt
                 using (var file = ofd.OpenFile())
                 using (var reader = new BinaryReader(file))
                 {
-                    var sh = new SecurityHelper(passText.Password);
+                    var sh = new SecurityHelper();
                     var content = reader.ReadBytes((int)file.Length);
-                    var dContent = sh.Decrypt(content);
+                    var dContent = sh.Decrypt(content, passText.Password);
                     File.WriteAllBytes(String.Format("{0}.ddata", ofd.FileName), dContent);
                     MessageBox.Show("Ok");
                 }
