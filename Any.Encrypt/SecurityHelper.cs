@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -8,38 +9,40 @@ namespace Any.Encrypt
     {
         private readonly byte[] Key;
 
-        private readonly byte[] IV;
-
         public SecurityHelper(string password)
         {
             const string saltStr = "1agg$wew";
-            const string ivStr = "ddfgsd%a";
 
             var salt = new UTF8Encoding(false).GetBytes(saltStr);
-            var key = new Rfc2898DeriveBytes(password, salt);
-            var iv = new Rfc2898DeriveBytes(ivStr, salt);
+            var key = new Rfc2898DeriveBytes(password, salt, 10000);
 
             Key = key.GetBytes(32);
-            IV = iv.GetBytes(16);
         }
 
-        public byte[] Encrypt(byte[] data, byte[] key, byte[] iv)
+        public byte[] Encrypt(byte[] data, byte[] key)
         {
+            var iv = CreateIV();
             using (var algorithm = Aes.Create())
-// ReSharper disable once PossibleNullReferenceException
             using (ICryptoTransform encryptor = algorithm.CreateEncryptor(key, iv))
             {
-                return Crypt(data, encryptor);
+                var encryptData = Crypt(data, encryptor);
+                var result = new byte[iv.Length + encryptData.Length];
+                iv.CopyTo(result, 0);
+                encryptData.CopyTo(result, iv.Length);
+                return result;
             }
         }
 
-        public byte[] Decrypt(byte[] data, byte[] key, byte[] iv)
+        public byte[] Decrypt(byte[] data, byte[] key)
         {
+            var iv = new byte[16];
+            var encryptData = new byte[data.Length - iv.Length];
+            Array.Copy(data, 0, iv, 0, iv.Length);
+            Array.Copy(data, iv.Length, encryptData, 0, encryptData.Length);
             using (var algorithm = Aes.Create())
-// ReSharper disable once PossibleNullReferenceException
             using (ICryptoTransform decryptor = algorithm.CreateDecryptor(key, iv))
             {
-                return Crypt(data, decryptor);
+                return Crypt(encryptData, decryptor);
             }
         }
 
@@ -53,14 +56,24 @@ namespace Any.Encrypt
             return m.ToArray();
         }
 
+        private byte[] CreateIV()
+        {
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                var data = new byte[16];
+                rngCsp.GetBytes(data);
+                return data;
+            }
+        }
+
         public byte[] Encrypt(byte[] data)
         {
-            return Encrypt(data, Key, IV);
+            return Encrypt(data, Key);
         }
 
         public byte[] Decrypt(byte[] data)
         {
-            return Decrypt(data, Key, IV);
+            return Decrypt(data, Key);
         }
  
     }
