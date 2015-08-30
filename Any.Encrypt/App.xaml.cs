@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Any.Encrypt
+namespace Ap.Encrypt
 {
     /// <summary>
     /// Interaction logic for App.xaml

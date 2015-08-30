@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Any.Encrypt
+namespace Ap.Encrypt
 {
     public class SecurityHelper
     {
