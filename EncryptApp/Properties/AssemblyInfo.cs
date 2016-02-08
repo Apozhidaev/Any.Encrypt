@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Any.Encrypt")]
+[assembly: AssemblyTitle("EncryptApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("DALE")]
-[assembly: AssemblyProduct("Any.Encrypt")]
-[assembly: AssemblyCopyright("Copyright © DALE 2014")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("EncryptApp")]
+[assembly: AssemblyCopyright("Copyright © 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

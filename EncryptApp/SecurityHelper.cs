@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Ap.Encrypt
+namespace EncryptApp
 {
     public class SecurityHelper
     {
@@ -17,7 +17,7 @@ namespace Ap.Encrypt
             var salt = CreateBytes(SaltLength);
             var key = new Rfc2898DeriveBytes(password, salt, IterationCount).GetBytes(KeyLength);
             using (var algorithm = Aes.Create())
-            using (ICryptoTransform encryptor = algorithm.CreateEncryptor(key, iv))
+            using (ICryptoTransform encryptor = algorithm?.CreateEncryptor(key, iv))
             {
                 var encryptData = Crypt(data, encryptor);
                 var result = new byte[iv.Length + salt.Length + encryptData.Length];
@@ -38,7 +38,7 @@ namespace Ap.Encrypt
             Array.Copy(data, iv.Length + salt.Length, encryptData, 0, encryptData.Length);
             var key = new Rfc2898DeriveBytes(password, salt, IterationCount).GetBytes(KeyLength);
             using (var algorithm = Aes.Create())
-            using (ICryptoTransform decryptor = algorithm.CreateDecryptor(key, iv))
+            using (ICryptoTransform decryptor = algorithm?.CreateDecryptor(key, iv))
             {
                 return Crypt(encryptData, decryptor);
             }

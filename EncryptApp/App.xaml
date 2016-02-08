@@ -1,7 +1,7 @@
-﻿<Application x:Class="Ap.Encrypt.App"
+﻿<Application x:Class="EncryptApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Views/MainView.xaml">
+             StartupUri="Views/Main.xaml">
     <Application.Resources>
          
     </Application.Resources>

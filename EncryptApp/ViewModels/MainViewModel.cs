@@ -2,23 +2,22 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Ap.Encrypt.Mvvm;
 using Microsoft.Win32;
+using Mvvm;
+using Mvvm.Commands;
 
-namespace Ap.Encrypt.ViewModels
+namespace EncryptApp.ViewModels
 {
     public class MainViewModel : BindableBase
     {
         private string _status;
         private string _password;
         private string _confirmPassword;
-        private readonly ICommand _encryptCommand;
-        private readonly ICommand _decryptCommand;
 
         public MainViewModel()
         {
-            _encryptCommand = new DelegateCommand(Encrypt, CanDo);
-            _decryptCommand = new DelegateCommand(Decrypt, CanDo);
+            EncryptCommand = new DelegateCommand(Encrypt, CanDo);
+            DecryptCommand = new DelegateCommand(Decrypt, CanDo);
         }
 
         public string Status
@@ -39,15 +38,9 @@ namespace Ap.Encrypt.ViewModels
             set { SetProperty(ref _confirmPassword, value); }
         }
 
-        public ICommand EncryptCommand
-        {
-            get { return _encryptCommand; }
-        }
+        public ICommand EncryptCommand { get; }
 
-        public ICommand DecryptCommand
-        {
-            get { return _decryptCommand; }
-        }
+        public ICommand DecryptCommand { get; }
 
         private async void Encrypt()
         {
@@ -63,7 +56,7 @@ namespace Ap.Encrypt.ViewModels
                         var sh = new SecurityHelper();
                         var content = reader.ReadBytes((int)file.Length);
                         var eContent = sh.Encrypt(content, Password);
-                        File.WriteAllBytes(String.Format("{0}.edata", ofd.FileName), eContent);
+                        File.WriteAllBytes($"{ofd.FileName}.edata", eContent);
                         Status = "Ok";
                     }
                 });
@@ -89,8 +82,8 @@ namespace Ap.Encrypt.ViewModels
                         {
                             var dContent = sh.Decrypt(content, Password);
                             File.WriteAllBytes(
-                                Path.Combine(Path.GetDirectoryName(ofd.FileName),
-                                    Path.GetFileNameWithoutExtension(ofd.FileName)), dContent);
+                                Path.Combine(Path.GetDirectoryName(ofd.FileName) ?? "",
+                                    Path.GetFileNameWithoutExtension(ofd.FileName) ?? ""), dContent);
                             Status = "Ok";
                         }
                         catch (Exception)

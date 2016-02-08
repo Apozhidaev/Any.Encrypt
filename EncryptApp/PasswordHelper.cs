@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Ap.Encrypt
+namespace EncryptApp
 {
     public static class PasswordHelper
     {
@@ -52,10 +52,10 @@ namespace Ap.Encrypt
         private static void OnPasswordPropertyChanged(DependencyObject sender,
             DependencyPropertyChangedEventArgs e)
         {
-            PasswordBox passwordBox = sender as PasswordBox;
+            PasswordBox passwordBox = (PasswordBox)sender;
             passwordBox.PasswordChanged -= PasswordChanged;
 
-            if (!(bool)GetIsUpdating(passwordBox))
+            if (!GetIsUpdating(passwordBox))
             {
                 passwordBox.Password = (string)e.NewValue;
             }
