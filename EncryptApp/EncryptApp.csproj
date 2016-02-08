@@ -64,8 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NuGet.Modules\AesHelper.cs" />
     <Compile Include="PasswordHelper.cs" />
-    <Compile Include="SecurityHelper.cs" />
     <Page Include="Views\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

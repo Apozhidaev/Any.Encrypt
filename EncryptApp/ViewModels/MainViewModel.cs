@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using Mvvm;
 using Mvvm.Commands;
+using NuGet.Modules;
 
 namespace EncryptApp.ViewModels
 {
@@ -53,9 +54,8 @@ namespace EncryptApp.ViewModels
                     using (var file = ofd.OpenFile())
                     using (var reader = new BinaryReader(file))
                     {
-                        var sh = new SecurityHelper();
                         var content = reader.ReadBytes((int)file.Length);
-                        var eContent = sh.Encrypt(content, Password);
+                        var eContent = AesHelper.Encrypt(content, Password);
                         File.WriteAllBytes($"{ofd.FileName}.edata", eContent);
                         Status = "Ok";
                     }
@@ -76,11 +76,10 @@ namespace EncryptApp.ViewModels
                     using (var file = ofd.OpenFile())
                     using (var reader = new BinaryReader(file))
                     {
-                        var sh = new SecurityHelper();
                         var content = reader.ReadBytes((int) file.Length);
                         try
                         {
-                            var dContent = sh.Decrypt(content, Password);
+                            var dContent = AesHelper.Decrypt(content, Password);
                             File.WriteAllBytes(
                                 Path.Combine(Path.GetDirectoryName(ofd.FileName) ?? "",
                                     Path.GetFileNameWithoutExtension(ofd.FileName) ?? ""), dContent);
